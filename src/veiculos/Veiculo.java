@@ -11,10 +11,8 @@ import java.util.Random;
  *
  * @author carolinacosta
  */
-public class Veiculo {
-
-    private Float y = 0f;
-    private Float x = 0f;
+public class Veiculo extends Elemento {
+    
     private Float velocidade;
     private Boolean fabrica;
     private String cor;
@@ -47,22 +45,22 @@ public class Veiculo {
             }
         }
 
-        if (x > 200) {
-            this.x = 0f;
+        if (x >= 60) {
+            this.x = 2f;
         }
 
-        if (y > 50) {
-            this.y = 0f;
+        if (y >= 60) {
+            this.y = 2f;
+        }
+        
+        if (x <= 1) {
+            this.x = 59f;
         }
 
-    }
+        if (y <= 1) {
+            this.y = 29f;
+        }
 
-    public Float getY() {
-        return y;
-    }
-
-    public Float getX() {
-        return x;
     }
 
     public Float getVelocidade() {
@@ -75,14 +73,6 @@ public class Veiculo {
 
     public String getCor() {
         return cor;
-    }
-
-    public void setY(Float y) {
-        this.y = y;
-    }
-
-    public void setX(Float x) {
-        this.x = x;
     }
 
     public void setVelocidade(Float velocidade) {
@@ -98,6 +88,11 @@ public class Veiculo {
     }
     
     public boolean isColisoes(Veiculo veiculo){
-        return this.x.equals(veiculo.getX()) && this.y.equals(veiculo.getY());
+        return this.isMesmaPosicao(veiculo.getX().intValue(), veiculo.getY().intValue());
     }
+    
+    public boolean isMesmaPosicao(Integer x, Integer y){
+        return this.x.intValue() == x && this.y.intValue() == y;
+    }
+       
 }

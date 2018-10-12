@@ -7,20 +7,16 @@ package veiculos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.Constantes;
 
 /**
  *
  * @author carolinacosta
  */
 public class Mundo{
-    
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-    
-    private static final Integer TAMANHO_X = 60;
-    private static final Integer TAMANHO_Y = 30;
     
     private static String mundo = "";
     
@@ -34,16 +30,16 @@ public class Mundo{
         veiculos.addAll(criaVeiculos(Caminhao.class));
         
         while (true){
-            for(int y = 0; y <= TAMANHO_Y; y++){
-                for(int x = 0; x <= TAMANHO_X; x++){
+            for(int y = 1; y <= Constantes.TAMANHO_Y; y++){
+                for(int x = 1; x <= Constantes.TAMANHO_X; x++){
                     String cor = verificaSeTemVeiculo(x, y);
                     mundo += cor + " ";
-                    if (x == TAMANHO_X){
-                        mundo += "/n";
+                    if (x == Constantes.TAMANHO_X){
+                        mundo += System.lineSeparator();
                     }
-                    
                 }
             }
+            System.out.print("SITUAÇÃO VEICULOS:");
             System.out.print(mundo);
             mundo = "";
             
@@ -60,8 +56,8 @@ public class Mundo{
         for(int i = 0; i < 10; i++){
             try {
                 T veiculo = clazz.newInstance();
-                veiculo.setX((float) (int) (1 + Math.random() * (TAMANHO_X -1)));
-                veiculo.setY((float) (int) (1 + Math.random() * (TAMANHO_Y -1)));
+                veiculo.setX((float) (int) (1 + Math.random() * (Constantes.TAMANHO_X -1)));
+                veiculo.setY((float) (int) (1 + Math.random() * (Constantes.TAMANHO_Y -1)));
                 
                 criados.add(veiculo);
                            
@@ -70,9 +66,7 @@ public class Mundo{
             }
             
         }
-        
         return criados;
-        
     }
     
     private static void moveTodosVeiculos(List<Veiculo> veiculos){
@@ -95,13 +89,16 @@ public class Mundo{
        return sobreviventes;   
     }
 
-    private static String verificaSeTemVeiculo(int x, int y) {
+    private static String verificaSeTemVeiculo(Integer x, Integer y) {
         for(Veiculo veiculo : veiculos){
-            if(veiculo.getX().equals(x) && veiculo.getY().equals(y)){
-               return veiculo.getCor();
+            if(veiculo.isMesmaPosicao(x, y)){
+                return veiculo.getCor();
             }
         }
-        return x == TAMANHO_X || x == 0 || y == TAMANHO_Y || y == 0 ? ANSI_BLACK_BACKGROUND : ANSI_WHITE_BACKGROUND;
+        return (Objects.equals(x, Constantes.TAMANHO_X) || x == 0 
+                || Objects.equals(y, Constantes.TAMANHO_Y) || y == 0 
+                    ? Constantes.CoresBackground.DEFAULT 
+                    : Constantes.CoresBackground.BRANCO).getCor();
     }
         
 }
