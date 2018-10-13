@@ -5,6 +5,8 @@
  */
 package veiculos;
 
+import static utils.Constantes.CoresBackground.AZUL;
+
 /**
  *
  * @author carolinacosta
@@ -16,7 +18,7 @@ public class Moto extends Veiculo{
     public Moto() {
         super.setVelocidade(3F);
         super.setPeso(2);
-        super.setCor("\u001B[44m");
+        super.setCor(AZUL.getCor());
     }
     
     public String getTipo() {

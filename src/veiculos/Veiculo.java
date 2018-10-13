@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package veiculos;
 
 import java.util.Random;
+import static utils.Constantes.TAMANHO_X;
+import static utils.Constantes.TAMANHO_Y;
 
 /**
  *
  * @author carolinacosta
  */
 public class Veiculo extends Elemento {
-    
+/*
+    Atribuindo variáveis da super classe veículo
+    */    
     private Float velocidade;
-    private Boolean fabrica;
-    private String cor;
+    private Boolean fabrica = Boolean.FALSE;
     private Integer peso;
 
     public Integer getPeso() {
@@ -26,6 +25,11 @@ public class Veiculo extends Elemento {
         this.peso = peso;
     }
 
+    /*
+    Criando o movimento de veículo
+    Os movimentos são randômicos e podem ser realizados nas 4 direções
+    Utilizando a velocidade que cada veiculo possui
+    */
     public void move() {
         Random random = new Random();
         Boolean v = random.nextBoolean();
@@ -45,34 +49,41 @@ public class Veiculo extends Elemento {
             }
         }
 
-        if (x >= 60) {
+        /*
+        Condição que verifica posição em x e y do veículo e faz o mundo ser cíclico
+        */
+        if (x >= TAMANHO_X -1) {
             this.x = 2f;
         }
 
-        if (y >= 60) {
+        if (y >= TAMANHO_Y -1) {
             this.y = 2f;
         }
         
         if (x <= 1) {
-            this.x = 59f;
+            this.x = new Float(TAMANHO_X -1);
         }
 
         if (y <= 1) {
-            this.y = 29f;
+            this.y = new Float(TAMANHO_Y -1);
         }
 
     }
+    
+    /*
+    Criando metodos getters e setters
+    */
 
     public Float getVelocidade() {
         return velocidade;
     }
 
-    public Boolean getFabrica() {
+    /**
+     *
+     * @return
+     */
+    public Boolean isFabrica() {
         return fabrica;
-    }
-
-    public String getCor() {
-        return cor;
     }
 
     public void setVelocidade(Float velocidade) {
@@ -82,17 +93,5 @@ public class Veiculo extends Elemento {
     public void setFabrica(Boolean fabrica) {
         this.fabrica = fabrica;
     }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-    
-    public boolean isColisoes(Veiculo veiculo){
-        return this.isMesmaPosicao(veiculo.getX().intValue(), veiculo.getY().intValue());
-    }
-    
-    public boolean isMesmaPosicao(Integer x, Integer y){
-        return this.x.intValue() == x && this.y.intValue() == y;
-    }
-       
+  
 }

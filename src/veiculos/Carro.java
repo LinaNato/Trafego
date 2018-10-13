@@ -5,6 +5,8 @@
  */
 package veiculos;
 
+import static utils.Constantes.CoresBackground.VERMELHO;
+
 /**
  *
  * @author carolinacosta
@@ -16,7 +18,7 @@ public class Carro extends Veiculo{
     public Carro(){
         super.setVelocidade(2F);
         super.setPeso(3);
-        super.setCor("\u001B[41m");
+        super.setCor(VERMELHO.getCor());
     }
     
     

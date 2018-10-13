@@ -1,10 +1,6 @@
 package veiculos;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import utils.Constantes;
 
 /**
  *
@@ -13,7 +9,7 @@ package veiculos;
 public class Elemento {
     protected Float y = 0f;
     protected Float x = 0f;
-    protected String cor;
+    protected String cor = Constantes.CoresBackground.DEFAULT.getCor();
 
     public String getCor() {
         return cor;
@@ -39,6 +35,12 @@ public class Elemento {
         this.x = x;
     }
     
+    public boolean isMesmaPosicao(Elemento elemento){
+        return this.isMesmaPosicao(elemento.getX().intValue(), elemento.getY().intValue());
+    }
     
+    public boolean isMesmaPosicao(Integer x, Integer y){
+        return this.x.intValue() == x && this.y.intValue() == y;
+    }    
     
 }
